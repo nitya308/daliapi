@@ -13,7 +13,7 @@
   },
   "license": "ISC",
   "engines": {
-    "node": ">=12 <=15"
+    "node": ">=12 <=16"
   },
   "nodemonConfig": {
     "signal": "SIGHUP",
