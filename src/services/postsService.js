@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-import Posts from '../models/Posts';
-import User from '../models/User';
+import Posts from '../models/posts';
+import User from '../models/user';
 import { addPost } from './userService';
 
 export const createPost = async (userID, club, image, caption, date) => {
