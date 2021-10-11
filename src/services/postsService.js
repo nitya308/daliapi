@@ -3,11 +3,31 @@ import Posts from '../models/posts';
 import User from '../models/user';
 import { addPost } from './userService';
 
-export const createPost = async (userID, club, image, caption, date) => {
+const fs = require('fs');
+const path = require('path');
+
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}-${Date.now()}`);
+  },
+});
+
+const upload = multer({ storage });
+
+export const createPost = async (userID, club, imageFile, caption, date) => {
+  upload.single(imageFile);
   const dateObject = new Date(date);
   const post = new Posts({
     club,
-    image,
+    image: {
+      data: fs.readFileSync(path.join(__dirname, '/uploads', imageFile)),
+      contentType: 'image/png',
+    },
     caption,
     date: dateObject,
   });

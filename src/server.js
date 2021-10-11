@@ -31,6 +31,8 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads
 
 app.use(passport.initialize());
 
+require('dotenv/config');
+
 const mongoURI = process.env.mongoURI || 'mongodb://localhost/project';
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {

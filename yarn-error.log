@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add nodemon
+  /usr/local/bin/node /usr/local/bin/yarn add multer --save
 
 PATH: 
-  /Library/Frameworks/Python.framework/Versions/3.9/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin
+  /Library/Frameworks/Python.framework/Versions/3.9/bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
   1.22.11
