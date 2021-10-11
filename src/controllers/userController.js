@@ -3,9 +3,9 @@ import * as userService from '../services/userService';
 export const signUpUser = async (req, res) => {
   try {
     const {
-      email, firstName, lastName, password,
+      email, firstName, lastName, password, year, pronouns, favquote, bio, majors, clubs,
     } = req.body;
-    const user = await userService.createUser(email, firstName, lastName, password);
+    const user = await userService.createUser(email, firstName, lastName, password, year, pronouns, favquote, bio, majors, clubs);
     return res.status(200).json(user);
   } catch (e) {
     console.log(e);
@@ -48,7 +48,7 @@ export const searchUsersByClub = async (req, res) => {
 export const searchUsersByMajor = async (req, res) => {
   try {
     const { major } = req.query;
-    const users = await userService.getUsersByClub(major);
+    const users = await userService.getUsersByMajor(major);
     return res.status(200).json(users);
   } catch (e) {
     console.log(e);

@@ -12,12 +12,12 @@ export const createUser = async (email, firstName, lastName, password, year, pro
     firstName,
     lastName,
     password,
-    /*     year,
+    year,
     pronouns,
     favquote,
     bio,
     majors,
-    clubs, */
+    clubs,
   });
   await user.save();
   return user;
@@ -39,7 +39,7 @@ export const getUsersByName = async (firstName, lastName) => {
 };
 
 export const getUsersByMajor = async (major) => {
-  const user = await User.find({ major });
+  const user = await User.find({ majors: major });
   return user;
 };
 

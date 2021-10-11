@@ -13,12 +13,12 @@ export const createComment = async (userId, commentText) => {
 };
 
 export const getCommentbyPost = async (postID) => {
-  const post = await Posts.find(postID);
+  const post = await Posts.findById(postID);
   const PostComments = post.comments;
   return PostComments;
 };
 
 export const getCommentByID = async (commentId) => {
-  const comment = await Comment.find({ id: commentId });
+  const comment = await Comment.findById(commentId);
   return comment;
 };

@@ -62,9 +62,9 @@ export const likePost = async (postID, userID) => {
 };
 
 export const unlikePost = async (postID, userID) => {
-  const unlikedPost = await Posts.findbyIDAndUpdate(postID, {
+  const unlikedPost = await Posts.findByIdAndUpdate(postID, {
     likes: {
-      likers: { puLL: User.findbyID(userID) },
+      likers: { puLL: User.findById(userID) },
       number: { $dec: 1 },
     },
   },
