@@ -33,7 +33,8 @@ router.route('/post/like')
   .post(requireAuth, postsController.likePost)
   .delete(requireAuth, postsController.unlikePost);
 
-router.route('post/comment')
+router.route('/post/comment')
+  .get(requireAuth, postsController.getComments)
   .post(requireAuth, commentController.addComment);
 
 export default router;

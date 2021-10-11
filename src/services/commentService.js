@@ -1,14 +1,15 @@
 /* eslint-disable import/prefer-default-export */
 import Comment from '../models/comment';
 import Posts from '../models/posts';
-import * as userService from './userService';
+import { addCommentToPost } from './postsService';
 
-export const createComment = async (userId, commentText) => {
+export const createComment = async (postID, userID, commentText) => {
   const comment = new Comment({
-    commentor: userService.getUserByID(userId).id,
+    commentor: userID,
     text: commentText,
   });
   await comment.save();
+  await addCommentToPost(postID, comment);
   return comment;
 };
 

@@ -30,7 +30,10 @@ export const createPost = async (userID, club, imageFile, caption, date) => {
     },
     caption,
     date: dateObject,
+    likes: { likers: null, number: 0 },
+    comments: null,
   });
+  await post.save();
   await addPost(userID, post);
   return post;
 };
@@ -46,14 +49,14 @@ export const getPostById = async (postId) => {
 };
 
 export const getPostsByClub = async (club) => {
-  const post = await Posts.find({ club }).sort({ date: -1 });
+  const post = await Posts.find(club).sort({ date: -1 });
   return post;
 };
 
 export const likePost = async (postID, userID) => {
   const likedPost = await Posts.findByIdAndUpdate(postID, {
     likes: {
-      likers: { push: User.findById(userID) },
+      likers: { push: userID },
       number: { $inc: 1 },
     },
   },
@@ -64,7 +67,7 @@ export const likePost = async (postID, userID) => {
 export const unlikePost = async (postID, userID) => {
   const unlikedPost = await Posts.findByIdAndUpdate(postID, {
     likes: {
-      likers: { puLL: User.findById(userID) },
+      likers: { puLL: userID },
       number: { $dec: 1 },
     },
   },
@@ -73,9 +76,13 @@ export const unlikePost = async (postID, userID) => {
 };
 
 export const addCommentToPost = async (postId, comment) => {
-  const post = getPostById(postId);
-  post.comments.push(comment.id);
-  post.save();
+  const post = await Posts.findById(postId);
+  if (post.comments) {
+    post.comments.push(comment._id);
+  } else {
+    post.comments = [comment._id];
+  }
+  await post.save();
 };
 
 export const getPostsByUser = async (userID) => {

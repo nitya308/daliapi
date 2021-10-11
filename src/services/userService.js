@@ -51,9 +51,9 @@ export const getUsersByClub = async (club) => {
 export const addPost = async (id, Post) => {
   const user = await User.findById(id);
   if (user.posts) {
-    user.posts.push(Post.id);
+    user.posts.push(Post._id);
   } else {
-    user.posts = [Post.id];
+    user.posts = [Post._id];
   }
   await user.save();
 };
