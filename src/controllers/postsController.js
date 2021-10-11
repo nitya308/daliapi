@@ -1,8 +1,8 @@
+/* eslint-disable no-var */
+/* eslint-disable vars-on-top */
 /* eslint-disable import/prefer-default-export */
 import * as postsService from '../services/postsService';
-import * as userService from '../services/userService';
 import { getCommentByID } from '../services/commentService';
-import { getPostById } from '../services/postsService';
 
 export const createNewPost = async (req, res) => {
   try {
@@ -27,19 +27,10 @@ export const getPosts = async (req, res) => {
   }
 };
 
-export const getPostsByUser = async (req, res) => {
-  const { userID } = req.query;
-  const user = userService.getUserByID(userID);
-  const postIds = user.posts;
-  return postIds.map((id) => {
-    return getPostById(id);
-  });
-};
-
 export const searchPostsByUser = async (req, res) => {
   try {
     const { userID } = req.query;
-    const posts = await postsService.getPostsyUser(userID);
+    const posts = await postsService.getPostsByUser(userID);
     return res.status(200).json(posts);
   } catch (e) {
     console.log(e);

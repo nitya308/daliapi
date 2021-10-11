@@ -13,20 +13,20 @@ router.route('/users')
 router.route('/signin')
   .post(requireSignin, userController.signInUser);
 
-router.route('users/search/club')
+router.route('/users/search/club')
   .get(requireAuth, userController.searchUsersByClub);
 
-router.route('users/search/major')
+router.route('/users/search/major')
   .get(requireAuth, userController.searchUsersByMajor);
 
 router.route('/user/posts')
   .get(requireAuth, postsController.searchPostsByUser)
   .post(requireAuth, postsController.createNewPost);
 
-router.route('posts')
+router.route('/posts')
   .get(requireAuth, postsController.getPosts);
 
-router.route('posts/club')
+router.route('/posts/club')
   .get(requireAuth, postsController.searchPostsByClub);
 
 router.route('/post/like')

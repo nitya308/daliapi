@@ -41,7 +41,7 @@ export const getAllPosts = async () => {
 };
 
 export const getPostById = async (postId) => {
-  const post = await Posts.find({ id: postId });
+  const post = await Posts.findById({ postId });
   return post;
 };
 
@@ -51,9 +51,9 @@ export const getPostsByClub = async (club) => {
 };
 
 export const likePost = async (postID, userID) => {
-  const likedPost = await Posts.findbyIDAndUpdate(postID, {
+  const likedPost = await Posts.findByIdAndUpdate(postID, {
     likes: {
-      likers: { push: User.findbyID(userID) },
+      likers: { push: User.findById(userID) },
       number: { $inc: 1 },
     },
   },
@@ -76,4 +76,13 @@ export const addCommentToPost = async (postId, comment) => {
   const post = getPostById(postId);
   post.comments.push(comment.id);
   post.save();
+};
+
+export const getPostsByUser = async (userID) => {
+  const user = await User.findById(userID);
+  const postIDs = user.posts;
+  const post = postIDs.map((id) => {
+    return getPostById(id);
+  });
+  return post;
 };

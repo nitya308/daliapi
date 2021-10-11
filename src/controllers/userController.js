@@ -1,5 +1,4 @@
 import * as userService from '../services/userService';
-import { getPostById } from '../services/postsService';
 
 export const signUpUser = async (req, res) => {
   try {
@@ -68,13 +67,4 @@ export const addFollower = async (req, res) => {
     console.log(e);
     return res.status(500).json({ error: e.message || 'There was an error.' });
   }
-};
-
-export const getPosts = async (req, res) => {
-  const { userID } = req.query;
-  const user = userService.getUserByID(userID);
-  const postIds = user.posts;
-  return postIds.map((id) => {
-    return getPostById(id);
-  });
 };
