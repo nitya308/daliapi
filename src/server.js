@@ -48,5 +48,10 @@ app.listen(port);
 
 console.log(`listening on: ${port}`);
 
+// default route
+app.get('/', (req, res) => {
+  res.json({ message: 'welcome to Dartmouth social media' });
+});
+
 app.use('/', router);
 export default router;

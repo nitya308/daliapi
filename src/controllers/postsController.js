@@ -41,7 +41,7 @@ export const searchPostsByUser = async (req, res) => {
 export const searchPostsByClub = async (req, res) => {
   try {
     const { club } = req.query;
-    const posts = await postsService.getPostsbyClub(club);
+    const posts = await postsService.getPostsByClub(club);
     return res.status(200).json(posts);
   } catch (e) {
     console.log(e);

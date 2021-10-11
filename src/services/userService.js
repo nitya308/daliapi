@@ -29,7 +29,7 @@ export const signInUser = async (user) => {
 };
 
 export const getUserByID = async (userID) => {
-  const user = await User.findByID(userID);
+  const user = await User.findById(userID);
   return user;
 };
 

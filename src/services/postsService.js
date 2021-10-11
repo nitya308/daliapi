@@ -46,7 +46,7 @@ export const getPostById = async (postId) => {
 };
 
 export const getPostsByClub = async (club) => {
-  const post = await Posts.find(club).sort({ date: -1 });
+  const post = await Posts.find({ club }).sort({ date: -1 });
   return post;
 };
 
