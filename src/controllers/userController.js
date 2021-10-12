@@ -58,10 +58,10 @@ export const searchUsersByMajor = async (req, res) => {
 
 export const addFollower = async (req, res) => {
   try {
-    const { userID, otherUserID } = req.query;
+    const { userID, followerID } = req.query;
     const user = await userService.getUserByID(userID);
-    const otherUSer = await userService.getUserByID(otherUserID);
-    user.followers.id.push(otherUSer.id);
+    const follower = await userService.getUserByID(followerID);
+    user.followers._id.push(follower._id);
     return res.status(200).json(user);
   } catch (e) {
     console.log(e);
