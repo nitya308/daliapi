@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 /* eslint-disable consistent-return */
+// This model stores all the users in the database
+
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 
@@ -13,9 +13,7 @@ const UserSchema = new Schema({
   pronouns: String,
   favquote: String,
   bio: String,
-  posts: [Schema.Types.ObjectId],
   followers: { id: [Schema.Types.ObjectId], numFollowers: Number },
-  following: { id: [Schema.Types.ObjectId], numFollowing: Number },
   majors: [String],
   clubs: [String],
 }, {
@@ -29,6 +27,7 @@ const UserSchema = new Schema({
   },
 });
 
+// Authentication for each user
 UserSchema.pre('save', function beforeModelSave(next) {
   const user = this;
   if (!user.isModified('password')) return next();
@@ -57,6 +56,7 @@ UserSchema.methods.comparePassword = function comparePassword(candidatePassword,
   });
 };
 
+// Virtual fuction to combine firstName and lastName to get a full name
 UserSchema.virtual('fullName').get(function fullName() {
   return `${this.firstName} ${this.lastName}`;
 });

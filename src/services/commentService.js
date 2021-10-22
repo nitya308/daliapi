@@ -1,24 +1,24 @@
 /* eslint-disable import/prefer-default-export */
 import Comment from '../models/comment';
-import Posts from '../models/posts';
-import { addCommentToPost } from './postsService';
 
+// creates and saves a comment to the database
 export const createComment = async (postID, userID, commentText) => {
   const comment = new Comment({
+    postID,
     commentor: userID,
     text: commentText,
   });
   await comment.save();
-  await addCommentToPost(postID, comment);
   return comment;
 };
 
+// Retrieve all comments on a particular post
 export const getCommentbyPost = async (postID) => {
-  const post = await Posts.findById(postID);
-  const PostComments = post.comments;
-  return PostComments;
+  const postComments = Comment.find(postID);
+  return postComments;
 };
 
+// Retrieve a comment by ID
 export const getCommentByID = async (commentId) => {
   const comment = await Comment.findById(commentId);
   return comment;

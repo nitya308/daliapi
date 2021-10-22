@@ -13,14 +13,14 @@ const jwtOptions = {
   secretOrKey: process.env.AUTH_SECRET,
 };
 
-// username + password authentication strategy
+// username + password authentication
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
   User.findOne({ email }, (err, user) => {
     if (err) { return done(err); }
 
     if (!user) { return done(null, false); }
 
-    // compare passwords - is `password` equal to user.password?
+    // checks if passwords are equal
     user.comparePassword(password, (err, isMatch) => {
       if (err) {
         done(err);
@@ -34,9 +34,8 @@ const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
 });
 
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
-  // See if the user ID in the payload exists in our database
-  // If it does, call 'done' with that other
-  // otherwise, call done without a user object
+  // If the user ID in the payload exists in our database, pass user to done
+  // otherwise, pass null to done
   User.findById(payload.sub, (err, user) => {
     if (err) {
       done(err, false);
@@ -48,7 +47,7 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
   });
 });
 
-// Tell passport to use this strategy
+// passport now uses these methods
 passport.use(jwtLogin);
 passport.use(localLogin);
 

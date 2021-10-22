@@ -1,6 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 
+/* This model stores all the posts */
+
 const PostsSchema = new Schema({
+  user: [{ type: Schema.Types.ObjectId, ref: 'User' }], // Each post is made by one user (posts--> users = many --> one)
   club: String,
   image: {
     data: Buffer,
@@ -8,8 +11,7 @@ const PostsSchema = new Schema({
   },
   caption: { type: String, default: '' },
   date: Date,
-  likes: { likers: [Schema.Types.ObjectId], number: Number },
-  comments: [Schema.Types.ObjectId],
+  likes: { likers: { type: [Schema.Types.ObjectId], ref: 'User' }, number: Number },
 });
 
 const Posts = mongoose.models.Posts || mongoose.model('Posts', PostsSchema);

@@ -1,8 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import Posts from '../models/posts';
-import User from '../models/user';
-import { addPost } from './userService';
 
+// to upload an image for a post
 const fs = require('fs');
 const path = require('path');
 
@@ -19,10 +18,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// creates and saves post to database
 export const createPost = async (userID, club, imageFile, caption, date) => {
   upload.single(imageFile);
   const dateObject = new Date(date);
   const post = new Posts({
+    userID,
     club,
     image: {
       data: fs.readFileSync(path.join(__dirname, '/uploads', imageFile)),
@@ -31,28 +32,30 @@ export const createPost = async (userID, club, imageFile, caption, date) => {
     caption,
     date: dateObject,
     likes: { likers: null, number: 0 },
-    comments: null,
   });
   await post.save();
-  await addPost(userID, post);
   return post;
 };
 
+// retrieve last 20 posts from most recent to least recent
 export const getAllPosts = async () => {
-  const allPosts = await Posts.find().sort({ date: -1 });
+  const allPosts = await Posts.find().sort({ date: -1 }).limit(20);
   return allPosts;
 };
 
+// retrieve post that matches ID
 export const getPostById = async (postId) => {
   const post = await Posts.findById({ postId });
   return post;
 };
 
+// find posts about a particular student org/club from most to least recent
 export const getPostsByClub = async (club) => {
   const post = await Posts.find(club).sort({ date: -1 });
   return post;
 };
 
+// like a post and return the post with the like
 export const likePost = async (postID, userID) => {
   const likedPost = await Posts.findByIdAndUpdate(postID, {
     likes: {
@@ -64,10 +67,11 @@ export const likePost = async (postID, userID) => {
   return likedPost;
 };
 
+// unlike a post and return the post with the unlike
 export const unlikePost = async (postID, userID) => {
   const unlikedPost = await Posts.findByIdAndUpdate(postID, {
     likes: {
-      likers: { puLL: userID },
+      likers: { pull: userID },
       number: { $dec: 1 },
     },
   },
@@ -75,21 +79,8 @@ export const unlikePost = async (postID, userID) => {
   return unlikedPost;
 };
 
-export const addCommentToPost = async (postId, comment) => {
-  const post = await Posts.findById(postId);
-  if (post.comments) {
-    post.comments.push(comment._id);
-  } else {
-    post.comments = [comment._id];
-  }
-  await post.save();
-};
-
+// Retrieve all posts made by a particular user
 export const getPostsByUser = async (userID) => {
-  const user = await User.findById(userID);
-  const postIDs = user.posts;
-  const post = postIDs.map((id) => {
-    return getPostById(id);
-  });
-  return post;
+  const posts = await Posts.find(userID).sort({ date: -1 });
+  return posts;
 };
