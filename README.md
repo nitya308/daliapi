@@ -44,3 +44,21 @@ Below is the basic structure of the backend. The components directory holds all 
     |-- server.js
     |-- router.js
  ```
+## Models
+### UserSchema: user.js
+This stores the following data for a student user:
+```
+const UserSchema = new Schema({
+  email: { type: String, required: true },
+  password: String,
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  year: { type: Number },
+  pronouns: String,
+  favquote: String,
+  bio: String,
+  followers: { id: [Schema.Types.ObjectId], numFollowers: Number },
+  majors: [String],
+  clubs: [String],
+}
+```
