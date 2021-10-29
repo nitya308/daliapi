@@ -92,7 +92,7 @@ const CommentSchema = new Schema({
 ## Services
 Each model has a corresponding service (+ a passport service for authentication).
 ### userService.js
-Has 5 fuctions corresponding to user models:
+**Has 5 fuctions corresponding to user models:**
 1. Authenticates user
 2. Creates and saves new user to the database
 3. Sign in user on login  
@@ -120,4 +120,36 @@ export const getUsersByMajor = async (major) => {
 };
 ```
 7. Find users based student clubs they're members of
-uses similar find function
+uses similar find function for (club) passed to function
+
+### postsService.js
+Funtions are all designed based on functionality the user might need.  
+1. Creates and saves post to database
+2. Retrieve last 20 posts from most recent to least recent  
+Uses the sort function in mongoose  
+```
+export const getAllPosts = async () => {
+  const allPosts = await Posts.find().sort({ date: -1 }).limit(20);
+  return allPosts;
+};
+```
+3. Retrieve post that matches ID
+4. Find posts about a particular student org/club from most to least recent
+```
+await Posts.find(club).sort({ date: -1 });
+```
+5. Like a post and return the post with the like 
+``` 
+export const likePost = async (postID, userID) => {
+  const likedPost = await Posts.findByIdAndUpdate(postID, {
+    likes: {
+      likers: { push: userID },
+      number: { $inc: 1 },
+    },
+  },
+  { new: true });
+  return likedPost;
+};
+```
+7. Unlike a post and return the post with the unlike
+8. Retrieve all posts made by a particular user
