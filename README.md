@@ -176,7 +176,8 @@ export const createComment = async (postID, userID, commentText) => {
   return comment;
 };
 ```
-2. Get all comments on a post
+2. Get all comments on a post:  
+A simple find by parameter function
 ```
 export const getCommentbyPost = async (postID) => {
   const postComments = Comment.find(postID);
@@ -184,7 +185,8 @@ export const getCommentbyPost = async (postID) => {
 };
 ```
 
-3. Retrieve a comment by ID
+3. Retrieve a comment by ID: 
+Uses findById()
 ```
 export const getCommentByID = async (commentId) => {
   const comment = await Comment.findById(commentId);
@@ -193,5 +195,7 @@ export const getCommentByID = async (commentId) => {
 ```
 
 ## Controllers
-
+Each service has a correponding controller that connects the router to the service.   
+The Router places calls to the controller which calls functions from the service.
+  
 ## Router
