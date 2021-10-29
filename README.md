@@ -139,6 +139,7 @@ export const getAllPosts = async () => {
 await Posts.find(club).sort({ date: -1 });
 ```
 5. Like a post and return the post with the like 
+Uses findByIdAndUpdate to add likers to the arraylist of likers and increment thecount of likes by 1.
 ``` 
 export const likePost = async (postID, userID) => {
   const likedPost = await Posts.findByIdAndUpdate(postID, {
