@@ -224,6 +224,7 @@ router.route('/users/search/club')
 
 router.route('/users/search/major')
   .get(requireAuth, userController.searchUsersByMajor);
-```. 
+```  
+  
 These routes allow searching for users in the database by clubs/majors:  
 ```userController.searchUsersByClub``` --> ```const { club } = req.query;``` --> ```await userService.getUsersByClub(club);``` 
