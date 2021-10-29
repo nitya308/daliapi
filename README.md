@@ -139,7 +139,7 @@ export const getAllPosts = async () => {
 await Posts.find(club).sort({ date: -1 });
 ```
 5. Like a post and return the post with the like 
-Uses findByIdAndUpdate to add likers to the arraylist of likers and increment thecount of likes by 1.
+Uses findByIdAndUpdate to add likers to the array of likers and increment the count of likes by 1.
 ``` 
 export const likePost = async (postID, userID) => {
   const likedPost = await Posts.findByIdAndUpdate(postID, {
@@ -153,4 +153,12 @@ export const likePost = async (postID, userID) => {
 };
 ```
 7. Unlike a post and return the post with the unlike
+Uses the same function as like to make the opposite update
 8. Retrieve all posts made by a particular user
+Uses parent referencing of userID stored in Posts model
+```
+export const getPostsByUser = async (userID) => {
+  const posts = await Posts.find(userID).sort({ date: -1 });
+  return posts;
+};
+```
