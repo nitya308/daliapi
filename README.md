@@ -95,9 +95,29 @@ Each model has a corresponding service (+ a passport service for authentication)
 Has 5 fuctions corresponding to user models:
 1. Authenticates user
 2. Creates and saves new user to the database
-3. Sign in user on login
+3. Sign in user on login  
+```
+export const signInUser = async (user) => {
+  const token = tokenForUser(user);
+  return { token, email: user.email };
+};
+```  
 4. Retrieve user based on ID
-5. Retrieve users by either first or last name
-6. Find users based on their major
+uses await ```User.findById(userID)```
+6. Retrieve users by either first or last name. 
+Uses find fuction with or paramater  
+```
+export const getUsersByName = async (firstName, lastName) => {
+  const users = await User.find({ $or: [{ firstName }, { lastName }] });
+  return users;
+};
+```
+6. Find users based on their major   
+```
+export const getUsersByMajor = async (major) => {
+  const user = await User.find({ majors: major });
+  return user;
+};
+```
 7. Find users based student clubs they're members of
-
+uses similar find function
