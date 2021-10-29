@@ -204,10 +204,13 @@ Comment: ```commentController.js```
 ## Router
 The first thing  ```router.js ``` does is import the Router
  ```import { Router } from 'express'; ```  
- Below is a detailed explanation of all the routes and corresponding calls
+   
+ **Below is a detailed explanation of all the routes and corresponding calls:**
  ```
   router.route('/users')
   .get(requireAuth, userController.getUsers)
   .post(userController.signUpUser);
 ```
 The get route displays users found by firstname and lastname and query parameter --> ```userController.getUsers``` --> ```{ firstName, lastName } = req.query;``` --> ```await userService.getUsersByName(firstName, lastName);```
+The post route creates a new user --> ```userController.signUpUser``` --> ```email, firstName, lastName, password, year, pronouns, favquote, bio, majors, clubs,
+    } = req.body;``` --> ```await userService.createUser(email, firstName, lastName, password, year, pronouns, favquote, bio, majors, clubs);```
