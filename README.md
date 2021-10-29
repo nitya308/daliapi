@@ -218,6 +218,7 @@ The **post** route creates a new user -->
 ```userController.signUpUser``` --> ```{email, firstName, year...(other fields)
     } = req.body;``` --> ```await userService.createUser(all fields);```  
 
+---
 ```      
 router.route('/users/search/club')
   .get(requireAuth, userController.searchUsersByClub);
