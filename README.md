@@ -197,5 +197,10 @@ export const getCommentByID = async (commentId) => {
 ## Controllers
 Each service has a correponding controller that connects the router to the service.   
 The Router places calls to the controller which calls functions from the service.
+User: ```userController.js```
+Posts: ```postsController.js```
+Comment: ```commentController.js```
   
 ## Router
+The first thing  ```router.js ``` does is import the Router
+ ```import { Router } from 'express'; ```
