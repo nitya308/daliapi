@@ -62,3 +62,30 @@ const UserSchema = new Schema({
   clubs: [String],
 }
 ```
+### PostsSchema: posts.js
+This supports posts about student organizations/ clubs that users can make:
+```
+const PostsSchema = new Schema({
+  user: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+  club: String,
+  image: {
+    data: Buffer,
+    contentType: String,
+  },
+  caption: { type: String, default: '' },
+  date: Date,
+  likes: { likers: { type: [Schema.Types.ObjectId], ref: 'User' }, number: Number },
+});
+```
+PostsSchema stores the corresponding user by ID through parent referencing. Likes are embedded within the schema: the field stores an array of likers and the total number of likes on a post.
+
+### CommentSchema: comment.js
+This supports commenting on particular posts. 
+CommentSchema stores the corresponding post by ID through parent referencing. It also stores a User object ID for the commentor sicne each comment has only one commentor.
+```
+const CommentSchema = new Schema({
+  post: { type: Schema.Types.ObjectId, ref: 'Posts' }, 
+  commentor: { type: Schema.Types.ObjectId, ref: 'User'}, 
+  text: String,
+});
+```
