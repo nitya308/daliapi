@@ -215,5 +215,5 @@ The **get** route displays users found by firstname and lastname and query param
 ```userController.getUsers``` --> ```{ firstName, lastName } = req.query;``` --> ```await userService.getUsersByName(firstName, lastName);```  
   
 The **post** route creates a new user -->  
-```userController.signUpUser``` --> ```email, firstName, lastName, password, year...(other fields)
+```userController.signUpUser``` --> ```{email, firstName, year...(other fields)
     } = req.body;``` --> ```await userService.createUser(all fields);```
