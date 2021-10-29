@@ -162,3 +162,36 @@ export const getPostsByUser = async (userID) => {
   return posts;
 };
 ```
+### commentService.js
+Least fucntionality because comments are used the least.
+1. Create comments:
+```
+export const createComment = async (postID, userID, commentText) => {
+  const comment = new Comment({
+    postID,
+    commentor: userID,
+    text: commentText,
+  });
+  await comment.save();
+  return comment;
+};
+```
+2. Get all comments on a post
+```
+export const getCommentbyPost = async (postID) => {
+  const postComments = Comment.find(postID);
+  return postComments;
+};
+```
+
+3. Retrieve a comment by ID
+```
+export const getCommentByID = async (commentId) => {
+  const comment = await Comment.findById(commentId);
+  return comment;
+};
+```
+
+## Controllers
+
+## Router
