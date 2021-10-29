@@ -89,3 +89,15 @@ const CommentSchema = new Schema({
   text: String,
 });
 ```
+## Services
+Each model has a corresponding service (+ a passport service for authentication).
+### userService.js
+Has 5 fuctions corresponding to user models:
+1. Authenticates user
+2. Creates and saves new user to the database
+3. Sign in user on login
+4. Retrieve user based on ID
+5. Retrieve users by either first or last name
+6. Find users based on their major
+7. Find users based student clubs they're members of
+
