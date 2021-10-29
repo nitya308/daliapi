@@ -205,7 +205,7 @@ Comment: ```commentController.js```
 The first thing  ```router.js ``` does is import the Router
  ```import { Router } from 'express'; ```  
    
- **Below is a detailed explanation of all the routes and corresponding calls:**
+ **Below is a detailed explanation** of important routes and corresponding calls:
  ```
   router.route('/users')
   .get(requireAuth, userController.getUsers)
@@ -216,4 +216,14 @@ The **get** route displays users found by firstname and lastname and query param
   
 The **post** route creates a new user -->  
 ```userController.signUpUser``` --> ```{email, firstName, year...(other fields)
-    } = req.body;``` --> ```await userService.createUser(all fields);```
+    } = req.body;``` --> ```await userService.createUser(all fields);```  
+
+```      
+router.route('/users/search/club')
+  .get(requireAuth, userController.searchUsersByClub);
+
+router.route('/users/search/major')
+  .get(requireAuth, userController.searchUsersByMajor);
+```. 
+These routes allow searching for users in the database by clubs/majors:  
+```userController.searchUsersByClub``` --> ```const { club } = req.query;``` --> ```await userService.getUsersByClub(club);``` 
