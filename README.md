@@ -211,6 +211,6 @@ The first thing  ```router.js ``` does is import the Router
   .get(requireAuth, userController.getUsers)
   .post(userController.signUpUser);
 ```
-The **get** route displays users found by firstname and lastname and query parameter --> ```userController.getUsers``` --> ```{ firstName, lastName } = req.query;``` --> ```await userService.getUsersByName(firstName, lastName);```. 
+The **get** route displays users found by firstname and lastname and query parameter --> ```userController.getUsers``` --> ```{ firstName, lastName } = req.query;``` --> ```await userService.getUsersByName(firstName, lastName);```  
 The **post** route creates a new user --> ```userController.signUpUser``` --> ```email, firstName, lastName, password, year...(other fields)
     } = req.body;``` --> ```await userService.createUser(all fields);```
